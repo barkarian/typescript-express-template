@@ -7,9 +7,9 @@ import "reflect-metadata";
 import mapInputToDto from "@/utis/mapInputToDto";
 
 //Controllers are typically used for validating the DTOs (Check that Application Inputs have the right form)
-const loginController = require("express").Router();
-export default loginController;
-loginController.post("/login",
+const simpleController = require("express").Router();
+export default simpleController;
+simpleController.post("/login",
     async (req: Request, res: Response, next) => {
         try {
             //Get DTOs and validate them
@@ -28,10 +28,23 @@ loginController.post("/login",
                 sendMessageRequest
             });
         } catch (err) {
+            //On Controller level error it is not thrown
+            //error is passed to the next middlewares
+            //(errorHandling and logging)
             next(err);
         }
     });
 
-loginController.get("/sayHelloWorld", async (req, res) => {
+simpleController.get("/sayHelloWorld", async (req, res) => {
     res.json("hello world");
+});
+
+simpleController.get("/nonCustomError", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        throw new Error("A non custom error for example NULL pointer exception +stack trace")
+        res.json("Unreachable code - response will never be arrived");
+    } catch (error) {
+        //Check how a non-custom Error would return to you
+        next(error)
+    }
 });

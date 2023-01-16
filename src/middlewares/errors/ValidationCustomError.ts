@@ -1,4 +1,4 @@
-import AppError from "@/middlewares/errors/AppError";
+import AppError from "./AppError";
 
 export default class ValidationCustomError extends AppError {
     constructor(message: string, details: any[]) {
