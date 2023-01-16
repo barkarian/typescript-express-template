@@ -1,7 +1,3 @@
-import { Request, Response, NextFunction } from "express";
-import { validate, ValidationError } from "class-validator";
-import { plainToClass } from "class-transformer";
-
 import {
   Contains,
   IsInt,
@@ -20,6 +16,7 @@ import { Exclude, Expose } from "class-transformer";
 
 export class LoginDto {
   @Expose()
+  @IsNotEmpty()
   email: string;
 
   @Expose()

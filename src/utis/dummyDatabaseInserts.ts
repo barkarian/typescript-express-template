@@ -18,6 +18,6 @@ export const dummyInsert = async () => {
   user.password = "password";
   user.accessToken = uuid();
   userCreated = await userRepository.save(user);
-  const allUsers = await userRepository.find();
-  console.log(allUsers);
+  const usersInDb = await userRepository.find();
+  console.log({usersInDb});
 };
